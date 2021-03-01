@@ -3,6 +3,8 @@ var should = require('chai').should();
 var expect = chai.expect;
 var assert = chai.assert;
 
+var sinon  = require('sinon');
+
 var Add    = require('../maths');
 
 describe('Addition Tests', function() {
@@ -12,15 +14,15 @@ describe('Addition Tests', function() {
     var numberOne = 1;
     var numberTwo = 2;
 
-    var expectedResult = 3;
-    var notExpectedResult = 7;
+    var logSpy = sinon.spy();
 
-    var actualResult = Add(numberOne, numberTwo);
+    console.log('Add function was called.', Add(100, 101));
+    // console.log('logSpy', logSpy());
 
-    // actualResult.should.equal(expectedResult);
-    expect(actualResult).to.not.equal(notExpectedResult);
+    Add(numberOne, numberTwo, logSpy());
 
-    assert.equal(actualResult, expectedResult);
+    // The next line uses CHAI
+    logSpy.called.should.be.true;
 
   });
 
